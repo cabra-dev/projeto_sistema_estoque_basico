@@ -1,7 +1,7 @@
 document.addEventListener("DOMContentLoaded", () => {
    //Ver se estamos na página de login ou na de produtos
     const paginaLogin = document.getElementById("formLogin");
-    const paginaProdutos = document.getElementById("formProduto");)
+    const paginaProdutos = document.getElementById("formProduto");
 
     // LOGIN SIMPLES
     if (paginaLogin) {
@@ -49,4 +49,10 @@ document.addEventListener("DOMContentLoaded", () => {
                 });
             }
         }
-        
+        // Função para remover um produto do array
+        window.remover = function(i) {
+            if (confirm("Tem certeza que deseja excluir este produto?")) {
+                produtos.splice(i, 1); // Remove o produto do array
+                atualizarTabela(); // Atualiza a tabela
+            }
+        };
