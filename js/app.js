@@ -41,7 +41,7 @@ document.addEventListener("DOMContentLoaded", () => {
                     const tr = document.createElement("tr");
                     tr.innerHTML = `
                         <td>${p.nome}</td>
-                        <td>${p.qtd}<td>
+                        <td>${p.quantidade}<td>
                         <td>R$ ${p.preco.toFixed(2)}</td>
                         <td><button class="btn small danger" onclick="remover(${i})">Excluir</button></td>
                     `;
@@ -56,3 +56,11 @@ document.addEventListener("DOMContentLoaded", () => {
                 atualizarTabela(); // Atualiza a tabela
             }
         };
+        // Evento de envio do formulário de produtos
+        paginaProdutos.addEventListener("submit", (event) => {
+            event.preventDefault(); // impede o recarregamento da página
+
+            // Captura os valores dos campos de entrada
+            const nome = document.getElementById("nome").value.trim();
+            const qtd = parseInt(document.getElementById("quantidade").value);
+            const preco = parseFloat(document.getElementById("preco").value);
