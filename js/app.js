@@ -76,4 +76,13 @@ document.addEventListener("DOMContentLoaded", () => {
             paginaProdutos.reset();
         });
 
-        
+        // Botão de logout
+        document.getElementById("logout").addEventListener("click", () => {
+            // Redireciona para a página de login
+            window.location.href = "login.php";
+        }
+    );
+    // Inicializa a tabela
+        atualizarTabela();
+    }   
+});
