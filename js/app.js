@@ -31,5 +31,22 @@ document.addEventListener("DOMContentLoaded", () => {
         const produtos = [];
         // Função para atualizar os produtos do array na tabela
         function atualizarTabela() {
-            lista.innerHTML = "";
-    }
+            lista.innerHTML = ""; // Limpa a tabela
+        // Se não tiver produtos, exibe uma mensagem
+            if (produtos.length === 0) {
+                lista.innerHTML = "<tr><td colspan='4'>Nenhum produto cadastrado.</td></tr>";
+            } else {
+        // Aqui percorre o array de produtos e adiciona cada um na tabela
+                produtos.forEach((p, i) => {
+                    const tr = document.createElement("tr");
+                    tr.innerHTML = `
+                        <td>${p.nome}</td>
+                        <td>${p.qtd}<td>
+                        <td>R$ ${p.preco.toFixed(2)}</td>
+                        <td><button class="btn small danger" onclick="remover(${i})">Excluir</button></td>
+                    `;
+                    lista.appendChild(tr); // Aqui adiciona a linha na tabela
+                });
+            }
+        }
+        
