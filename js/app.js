@@ -20,3 +20,16 @@ document.addEventListener("DOMContentLoaded", () => {
                 // Exibe uma mensagem de erro
                 alert("Usuário ou senha incorretos!");
             }
+        });
+    }
+
+    // CONTROLE DE PRODUTOS
+    if (paginaProdutos) {
+        const lista = document.getElementById("lista");
+        // Aqui onde os produtos serão armazenados (sem usar banco de dados)
+        // Vamos usar um array simples
+        const produtos = [];
+        // Função para atualizar os produtos do array na tabela
+        function atualizarTabela() {
+            lista.innerHTML = "";
+    }
