@@ -64,3 +64,16 @@ document.addEventListener("DOMContentLoaded", () => {
             const nome = document.getElementById("nome").value.trim();
             const qtd = parseInt(document.getElementById("quantidade").value);
             const preco = parseFloat(document.getElementById("preco").value);
+            // Validação simples dos campos
+            if (!nome || qtd <= 0 || preco <= 0) {
+                alert("Por favor, preencha todos os campos corretamente.");
+                return;
+            }
+            // Adiciona o novo produto ao array
+            produtos.push({ nome: nome, quantidade: qtd, preco: preco });
+            atualizarTabela(); // Atualiza a tabela
+            // Limpa os campos do formulário
+            paginaProdutos.reset();
+        });
+
+        
