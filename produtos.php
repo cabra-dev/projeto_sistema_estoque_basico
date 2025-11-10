@@ -1,3 +1,7 @@
+<?php
+
+?>
+
 <DOCTYPE html>
 <html lang="pt-BR">
 <head>
@@ -6,7 +10,6 @@
   <link rel="stylesheet" href="css/estilo.css">
 </head>
 <body>
-  <?php
   <div class="container">
     <header>
       <h1>Controle de Estoque</h1>
@@ -39,7 +42,6 @@
     </section>
   </div>
   <script src="js/app.js"></script>
-  ?>
 </body>
 </html>
 ?>
