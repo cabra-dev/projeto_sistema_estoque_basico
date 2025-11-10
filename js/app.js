@@ -29,20 +29,33 @@ document.addEventListener("DOMContentLoaded", () => {
         // Aqui onde os produtos serão armazenados (sem usar banco de dados)
         // Vamos usar um array simples
         const produtos = [];
+        let cotacao = 0;
+        async function atualizarCotacao(){
+            try {
+                const r = await fetch("https://api.exchangerate.host/latest?base=BRL&symbols=USD");
+                const data = await r.json();
+                cotacao = data.rates.USD;
+            } catch (e) {
+                cotacao = 0.20; // valor padrão em caso de erro
+            }
+
+        }
         // Função para atualizar os produtos do array na tabela
         function atualizarTabela() {
             lista.innerHTML = ""; // Limpa a tabela
         // Se não tiver produtos, exibe uma mensagem
             if (produtos.length === 0) {
-                lista.innerHTML = "<tr><td colspan='4'>Nenhum produto cadastrado.</td></tr>";
+                lista.innerHTML = "<tr><td colspan='5'>Nenhum produto cadastrado.</td></tr>";
             } else {
         // Aqui percorre o array de produtos e adiciona cada um na tabela
                 produtos.forEach((p, i) => {
+                    const precoUSD = (p.preco * cotacao).toFixed(2);
                     const tr = document.createElement("tr");
                     tr.innerHTML = `
                         <td>${p.nome}</td>
                         <td>${p.quantidade}<td>
                         <td>R$ ${p.preco.toFixed(2)}</td>
+                        <td>US$ ${precoUSD}</td>
                         <td><button class="btn small danger" onclick="remover(${i})">Excluir</button></td>
                     `;
                     lista.appendChild(tr); // Aqui adiciona a linha na tabela
@@ -57,7 +70,7 @@ document.addEventListener("DOMContentLoaded", () => {
             }
         };
         // Evento de envio do formulário de produtos
-        paginaProdutos.addEventListener("submit", (event) => {
+        paginaProdutos.addEventListener("submit", async (event) => {
             event.preventDefault(); // impede o recarregamento da página
 
             // Captura os valores dos campos de entrada
@@ -70,6 +83,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 return;
             }
             // Adiciona o novo produto ao array
+            await atualizarCotacao();
             produtos.push({ nome: nome, quantidade: qtd, preco: preco });
             atualizarTabela(); // Atualiza a tabela
             // Limpa os campos do formulário

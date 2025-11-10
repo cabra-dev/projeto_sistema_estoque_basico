@@ -33,7 +33,8 @@
           <tr>
             <th>Nome</th>
             <th>Quantidade</th>
-            <th>Preço</th>
+            <th>Preço (R$)</th>
+            <th>Preço (US$)</th>
             <th>Ações</th>
           </tr>
         </thead>
