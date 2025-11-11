@@ -37,24 +37,6 @@ O sistema também faz a **conversão automática de valores em reais (R$) para d
 - Cores contrastantes com tons escuros e detalhes em azul.  
 - Layout centralizado e ajustado para desktop e mobile.
 
----
-
-## 🧩 Estrutura do Projeto
-
-sistema_estoque_api/
-│
-├── index.php → redireciona para o login
-├── login.php → tela de autenticação
-├── produtos.php → tela principal do sistema
-│
-├── js/
-│ └── app.js → lógica principal (login, array, API, exclusão)
-│
-├── css/
-│ └── estilo.css → tema escuro e layout centralizado
-│
-└── README.md → documentação do projeto
-
 
 ## ⚙️ Tecnologias Utilizadas
 
