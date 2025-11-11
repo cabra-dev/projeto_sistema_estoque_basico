@@ -53,7 +53,7 @@ document.addEventListener("DOMContentLoaded", () => {
                     const tr = document.createElement("tr");
                     tr.innerHTML = `
                         <td>${p.nome}</td>
-                        <td>${p.quantidade}<td>
+                        <td>${p.quantidade}</td>
                         <td>R$ ${p.preco.toFixed(2)}</td>
                         <td>US$ ${precoUSD}</td>
                         <td><button class="btn small danger" onclick="remover(${i})">Excluir</button></td>
