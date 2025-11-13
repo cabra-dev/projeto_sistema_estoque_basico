@@ -62,6 +62,10 @@ Usuário: admin
 Senha: 1234
 6. Comece a cadastrar os produtos e veja a conversão automática em dólar 💵.
 
+## Link do video do YouTube
+
+https://www.youtube.com/watch?v=8y89EEzS1fc
+
 
 ## 👨‍💻 Autor e Contribuição
 
