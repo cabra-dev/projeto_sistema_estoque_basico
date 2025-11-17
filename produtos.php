@@ -1,54 +1,135 @@
 <?php
+session_start();
+if (!isset($_SESSION["logado"])) {
+    header("Location: login.php");
+    exit;
+}
+
+require "conexao.php";
+
+// CADASTRO
+if ($_SERVER["REQUEST_METHOD"] === "POST") {
+    $nome = $_POST["nome"];
+    $quantidade = $_POST["quantidade"];
+    $preco = $_POST["preco"];
+
+    $conn->query("INSERT INTO produtos (nome, quantidade, preco)
+                  VALUES ('$nome', '$quantidade', '$preco')");
+}
+
+// EXCLUSÃO
+if (isset($_GET["delete"])) {
+    $id = $_GET["delete"];
+    $conn->query("DELETE FROM produtos WHERE id = $id");
+}
+
+$produtos = $conn->query("SELECT * FROM produtos");
+
+// EDITAR PRODUTO
+$editando = false;
+$produtoEdit = null;
+
+if (isset($_GET["edit"])) {
+    $editando = true;
+    $id = $_GET["edit"];
+    $result = $conn->query("SELECT * FROM produtos WHERE id = $id");
+    $produtoEdit = $result->fetch_assoc();
+}
+
+// SALVAR EDIÇÃO
+if (isset($_POST["update"])) {
+    $id = $_POST["id"];
+    $nome = $_POST["nome"];
+    $quantidade = $_POST["quantidade"];
+    $preco = $_POST["preco"];
+
+    $conn->query("
+        UPDATE produtos
+        SET nome='$nome', quantidade='$quantidade', preco='$preco'
+        WHERE id=$id
+    ");
+
+    header("Location: produtos.php");
+    exit;
+}
+
 ?>
 
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="pt-br">
 <head>
-  <meta charset="UTF-8">
-  <title>Produtos - Sistema de Estoque</title>
-  <link rel="stylesheet" href="css/estilo.css"> <!-- Importa o arquivo css-->
+<meta charset="UTF-8">
+<link rel="stylesheet" href="css/estilo.css">
+<script src="js/app.js" defer></script>
+<title>Produtos</title>
 </head>
+
 <body>
-  <div class="container"> <!-- Container principal que centraliza o conteúdo-->
+<button id="logout" onclick="window.location.href='login.php'">Sair</button>
 
-    <header> 
-      <h1>Controle de Estoque</h1> <!-- Título principal da página -->
-      <button id="logout" class ="btn small">Sair</button> <!-- Botão de logout -->
-    </header>
+<div class="container">
+    <h1>Lista de Produtos</h1>
 
-<!-- Seção para cadastrar os produtos -->
-    <section class="card">
-      <h2>Novo Produto</h2>
-      <form id="formProduto"> <!-- Formulário que será manipulado no JavaScript -->
-        <input type="text" id="nome" placeholder="Nome do produto" required> <!-- Campo para o nome -->
-        <input type="number" id="quantidade" placeholder="Quantidade" required> <!-- Campo numérico -->
-        <input type="number" id="preco" placeholder="Preço" step="0.01" required> <!-- Campo para o preço -->
-        <button type="submit" class="btn">Cadastrar</button> <!-- Botão de envio --> 
-      </form>
-    </section>
+    <form method="POST">
+    <?php if ($editando): ?>
+        <input type="hidden" name="id" value="<?= $produtoEdit['id'] ?>">
+    <?php endif; ?>
 
-    <!-- Seção de exibição dos produtos -->
-    <section class="card">
-      <h2>Lista de Produtos</h2>
+    <label>Nome:</label>
+    <input type="text" name="nome" value="<?= $editando ? $produtoEdit['nome'] : '' ?>">
 
-      <table id="tabela">
-        <thead>
-          <tr>
-            <th>Nome</th>
-            <th>Quantidade</th>
+    <label>Quantidade:</label>
+    <input type="number" name="quantidade" value="<?= $editando ? $produtoEdit['quantidade'] : '' ?>">
+
+    <label>Preço (R$):</label>
+    <input type="number" step="0.01" name="preco" value="<?= $editando ? $produtoEdit['preco'] : '' ?>">
+
+    <?php if ($editando): ?>
+        <button class="btn">Salvar Alterações</button>
+        <a href="produtos.php" class="btn danger">Cancelar</a>
+        <input type="hidden" name="update" value="1">
+    <?php else: ?>
+        <button class="btn">Cadastrar</button>
+    <?php endif; ?>
+</form>
+
+        <label>Nome:</label>
+        <input type="text" name="nome">
+
+        <label>Quantidade:</label>
+        <input type="number" name="quantidade">
+
+        <label>Preço (R$):</label>
+        <input type="number" step="0.01" name="preco">
+
+        <button class="btn">Cadastrar</button>
+    </form>
+
+    <table>
+        <tr>
+            <th>Produto</th>
+            <th>Qtd</th>
             <th>Preço (R$)</th>
-            <th>Preço (US$)</th> <!-- Campo adicional para converção da moeda-->
-            <th>Ações</th> <!-- Coluna para botões de remoção -->
-          </tr>
-        </thead>
+            <th>Preço (US$)</th>
+            <th>Ações</th>
+        </tr>
 
-        <tbody id="lista"></tbody> <!-- Corpo da tabela, onde os produtos serão inseridos dinamicamente -->
-      </table>
-    </section>
-    
-  </div>
+        <?php while($p = $produtos->fetch_assoc()): ?>
+        <tr>
+            <td><?= $p['nome'] ?></td>
+            <td><?= $p['quantidade'] ?></td>
+            <td>R$ <?= number_format($p['preco'], 2, ',', '.') ?></td>
+            <td class="usd" data-preco="<?= $p['preco'] ?>"></td>
 
-  <!-- Lincando o js q vai ser responsável por controlar toda a lógica da página -->
-  <script src="js/app.js"></script>
+            <td>
+                <a class="btn" href="produtos.php?edit=<?= $p['id'] ?>">Editar</a>
+                <a class="btn danger" href="produtos.php?delete=<?= $p['id'] ?>">Excluir</a>
+            </td>
+
+        </tr>
+        <?php endwhile; ?>
+    </table>
+
+</div>
 </body>
 </html>
