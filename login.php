@@ -1,4 +1,22 @@
 <?php
+session_start();
+require "conexao.php";
+
+if($_SERVER ["REQUEST_METHOD"] == "POST") {
+  $usuario = $_POST ["user"];
+  $senha = $_POST["pass"];
+
+  $sql = "SELECT * FROM usuarios WHERE usuarios = '$usuario' AND senha = '$senha'";
+  $result = $conn->query($sql);
+
+  if ($result->num_rows === 1) {
+    $_SESSION["logado"] = true;
+    header("Location: produtos.php");
+    exit;
+  } else {
+    $erro = "Usuário ou senha incorreto!";
+  }
+}
 
 ?>
 
@@ -13,27 +31,18 @@
 
   <div class="container"> <!-- Container principal que centraliza o conteúdo-->
 
-    <h1>Sistema de Estoque</h1><!-- Título principal da página -->
-    <div class="card">
+   <h1>Login</h1>
 
-      <!-- Criação do formulário para login -->
-      <h2>Login</h2>
-      <form id="formLogin"> <!-- O id será utilizdo pelo js para capturar os dados do envio-->
+   <?php if(isset($erro)) echo "<p class='erro'>$erro</p"; ?>
 
-        <label>Usuário</label>
-        <input type="text" id="user" required> <!-- Campo de texto para coletar o nome do usário -->
+   <form method="POST">
+    <label>Usuário:</label>
+    <input type="text" name="user">
+    <label>Senha:</label>
+    <input type="password" name="pass">
 
-        <label>Senha</label>
-        <input type="password" id="pass" required> <!-- Campo para a senha -->
-
-        <button type="submit" class="btn">Entrar</button> <!-- Botão para enviar o formulário -->
-        
-      </form>
-
-    </div>
-
+    <button class="btn">Entrar</button>
+   </form>
   </div>
-  <!-- Lincando o js q vai ser responsável por fazer a verificação e redirecionar o usuário-->
-  <script src="js/app.js"></script>
 </body>
 </html>
