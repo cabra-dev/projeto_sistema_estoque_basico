@@ -13,7 +13,8 @@ body {
 
 /* ======= CONTAINER PRINCIPAL ======= */
 .container {
-  width: 420px;
+  width: 600px;  /* Aumentado pra caber melhor a tabela */
+  max-width: 90%;  /* Responsivo */
   padding: 25px 30px;
   background-color: #1e1e1e;
   border-radius: 10px;
@@ -44,13 +45,18 @@ label {
 input {
   width: 95%;
   display: block;
-  margin: 5px auto 10px auto;
+  margin: 5px auto 15px auto;  /* Mais espaço abaixo */
   padding: 10px;
-  border: none;
+  border: 1px solid #444;  /* Border visível */
   border-radius: 5px;
   background-color: #2c2c2c;
   color: #fff;
   font-size: 14px;
+}
+
+input:focus {
+  border-color: #00bcd4;  /* Destaque no focus */
+  outline: none;
 }
 
 /* ======= BOTÕES ======= */
@@ -84,9 +90,16 @@ input {
 
 /* ======= BOTÃO SAIR ======= */
 #logout {
-  float: right;
+  position: absolute;  /* Posiciona fixo no topo direito */
+  top: 20px;
+  right: 20px;
+  padding: 10px 20px;
   background-color: #00bcd4;
-  margin-bottom: 10px;
+  border: none;
+  border-radius: 6px;
+  color: white;
+  cursor: pointer;
+  transition: 0.2s;
 }
 
 #logout:hover {
@@ -98,12 +111,14 @@ table {
   width: 100%;
   border-collapse: collapse;
   margin-top: 25px;
+  border: 1px solid #333;  /* Border externa */
 }
 
 th, td {
-  padding: 12px 8px;
+  padding: 12px 15px;  /* Mais padding horizontal */
   text-align: center;
   border-bottom: 1px solid #333;
+  border-right: 1px solid #333;  /* Borders verticais */
 }
 
 th {
@@ -113,6 +128,12 @@ th {
 
 td {
   color: #ddd;
+}
+
+/* Wrapper pra tabela com scroll horizontal se precisar */
+.table-wrapper {
+  overflow-x: auto;  /* Scroll em mobile se tabela for larga */
+  margin-top: 25px;
 }
 
 /* ======= MENSAGENS ======= */
@@ -149,15 +170,20 @@ td {
   }
 
   table {
-  border-spacing: 0;
-  table-layout: fixed; /* força todas as colunas a terem largura igual */
-}
+    border-spacing: 0;
+    table-layout: fixed; /* força todas as colunas a terem largura igual */
+  }
 
-th, td {
-  width: 20%; /* 5 colunas = 100% / 5 */
-  padding: 10px;
-  text-align: center;
-  vertical-align: middle; /* centraliza verticalmente */
-}
+  th, td {
+    width: auto;  /* Remove fixo 20% pra auto-ajuste */
+    padding: 10px 5px;  /* Menos padding em mobile */
+    text-align: center;
+    vertical-align: middle; /* centraliza verticalmente */
+  }
 
+  #logout {
+    top: 10px;
+    right: 10px;
+    padding: 8px 15px;  /* Menor em mobile */
+  }
 }
