@@ -1,8 +1,8 @@
-# 💼 Sistema de Controle de Estoque 
+💼 Sistema de Controle de Estoque
 
-Um sistema simples e funcional de controle de estoque desenvolvido com **PHP**, **JavaScript** e **CSS**, sem uso de banco de dados.  
-Os produtos são armazenados em **arrays** e exibidos em uma tabela dinâmica.  
-O sistema também faz a **conversão automática de valores em reais (R$) para dólares (US$)** usando uma **API externa**.
+Um sistema simples e funcional de controle de estoque desenvolvido com PHP, JavaScript e CSS, utilizando um banco de dados local (MySQL) via XAMPP.
+Os produtos são armazenados no banco de dados e exibidos em uma tabela dinâmica.
+O sistema também faz a conversão automática de valores em reais (R$) para dólares (US$) usando uma API externa.
 
 ---
 
@@ -42,12 +42,13 @@ O sistema também faz a **conversão automática de valores em reais (R$) para d
 
 | 💻 Tecnologia | 📄 Função |
 |----------------|-----------|
-| **PHP** | Estrutura básica das páginas |
+| **PHP** | Estrutura básica das páginas e manipulação de banco de dados |
 | **HTML5** | Marcação da interface |
 | **CSS3** | Estilização (tema escuro responsivo) |
 | **JavaScript (ES6)** | Lógica do sistema e integração com API |
+| **MySQL, Armazenamento persistente de dados via XAMPP |
 | **API Exchangerate.host** | Cotação BRL → USD |
-| **XAMPP (Apache)** | Servidor local |
+| **XAMPP (Apache)** | Servidor local e banco de dados|
 
 
 ## 🧠 Como Executar o Projeto Localmente
@@ -55,7 +56,7 @@ O sistema também faz a **conversão automática de valores em reais (R$) para d
 1. **Instale o [XAMPP](https://www.apachefriends.org/pt_br/index.html)** (ou outro servidor PHP local).  
 2. Coloque a pasta do projeto dentro de:
 C:\xampp\htdocs\
-3. Inicie o **Apache** no painel do XAMPP.  
+3. Inicie o **Apache** e o **MySQL** no painel do XAMPP.  
 4. Acesse no navegador:
 5. Faça login com:  
 Usuário: admin
