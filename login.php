@@ -6,7 +6,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $usuario = $_POST["user"];
     $senha = $_POST["pass"];
 
-    // Use prepared statements para evitar SQL Injection
     $sql = "SELECT * FROM usuarios WHERE usuario = ? AND senha = ?";
     $stmt = $conn->prepare($sql);
     $stmt->bind_param("ss", $usuario, $senha); // "ss" significa duas strings
