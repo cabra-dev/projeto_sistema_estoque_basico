@@ -46,7 +46,7 @@ O sistema também faz a conversão automática de valores em reais (R$) para dó
 | **HTML5** | Marcação da interface |
 | **CSS3** | Estilização (tema escuro responsivo) |
 | **JavaScript (ES6)** | Lógica do sistema e integração com API |
-| **MySQL, Armazenamento persistente de dados via XAMPP |
+| **MySQL** | Armazenamento persistente de dados via XAMPP |
 | **API Exchangerate.host** | Cotação BRL → USD |
 | **XAMPP (Apache)** | Servidor local e banco de dados|
 
