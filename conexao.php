@@ -5,6 +5,7 @@ $user = "root";
 $pass = "";
 $dbname = "estoque_db";
 
+// Cria uma nova conexão com o MySQL usando a extensão MySQLi
 $conn = new mysqli($host, $user, $pass, $dbname);
 
 if ($conn->connect_error) {

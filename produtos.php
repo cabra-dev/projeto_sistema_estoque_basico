@@ -17,13 +17,13 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         // Atualização
         $id = $_POST["id"];
         $stmt = $conn->prepare("UPDATE produtos SET nome = ?, quantidade = ?, preco = ? WHERE id = ?");
-        $stmt->bind_param("sdii", $nome, $quantidade, $preco, $id);  // s=string, d=double, i=int
+        $stmt->bind_param("sidi", $nome, $quantidade, $preco, $id);  // s=string, d=double, i=int
         $stmt->execute();
         $stmt->close();
     } else {
         // Cadastro
         $stmt = $conn->prepare("INSERT INTO produtos (nome, quantidade, preco) VALUES (?, ?, ?)");
-        $stmt->bind_param("sdi", $nome, $quantidade, $preco);
+        $stmt->bind_param("sid", $nome, $quantidade, $preco);
         $stmt->execute();
         $stmt->close();
     }
@@ -44,6 +44,7 @@ if (isset($_GET["delete"])) {
 }
 
 // LISTAGEM
+// Busca todos os produtos do banco para exibir na tabela
 $result = $conn->query("SELECT * FROM produtos");
 
 // EDITAR (preenche form)
